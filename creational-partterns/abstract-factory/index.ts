@@ -1,8 +1,3 @@
-interface AbstractFactory {
-  createProductA(): AbstractProductA
-  createProductB(): AbstractProductB
-}
-
 interface AbstractProductA {
   useFulFunctionA(): string
 }
@@ -10,6 +5,11 @@ interface AbstractProductA {
 interface AbstractProductB {
   useFulFunctionB(): string
   anotherUseFulFunctionB(collaborator: AbstractProductA): string
+}
+
+interface AbstractFactory {
+  createProductA(): AbstractProductA
+  createProductB(): AbstractProductB
 }
 
 class ConcreteProductA1 implements AbstractProductA {
@@ -21,23 +21,6 @@ class ConcreteProductA1 implements AbstractProductA {
 class ConcreteProductA2 implements AbstractProductA {
   public useFulFunctionA(): string {
     return 'The result of the product A2.'
-  }
-}
-
-class ConcreteFactory1 implements AbstractFactory {
-  public createProductA(): AbstractProductA {
-    return new ConcreteProductA1()
-  }
-  public createProductB(): AbstractProductB {
-    return new ConcreteProductB1()
-  }
-}
-class ConcreteFactory2 implements AbstractFactory {
-  createProductA(): AbstractProductA {
-    return new ConcreteProductA2()
-  }
-  createProductB(): AbstractProductB {
-    return new ConcreteProductB2()
   }
 }
 
@@ -60,6 +43,23 @@ class ConcreteProductB2 implements AbstractProductB {
   anotherUseFulFunctionB(collaborator: AbstractProductA): string {
     const result = collaborator.useFulFunctionA()
     return `The result of the B2 collaborating with the (${result})`
+  }
+}
+
+class ConcreteFactory1 implements AbstractFactory {
+  public createProductA(): AbstractProductA {
+    return new ConcreteProductA1()
+  }
+  public createProductB(): AbstractProductB {
+    return new ConcreteProductB1()
+  }
+}
+class ConcreteFactory2 implements AbstractFactory {
+  createProductA(): AbstractProductA {
+    return new ConcreteProductA2()
+  }
+  createProductB(): AbstractProductB {
+    return new ConcreteProductB2()
   }
 }
 
